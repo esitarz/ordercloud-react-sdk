@@ -21,6 +21,9 @@ export default defineConfig({
         "ordercloud-javascript-sdk",
         "@tanstack/react-query",
         "@tanstack/react-table",
+        "react-hook-form",
+        "@hookform/resolvers",
+        "@hookform/resolvers/yup",
       ],
       output: {
         // Global vars to use in UMD build for externalized deps
@@ -30,6 +33,9 @@ export default defineConfig({
           "ordercloud-javascript-sdk": "ordercloud",
           "@tanstack/react-query": "ReactQuery",
           "@tanstack/react-table": "ReactTable",
+          "react-hook-form": "ReactHookForm",
+          "@hookform/resolvers": "HookFormResolvers",
+          "@hookform/resolvers/yup": "HookFormResolversYup",
         },
       },
     },
