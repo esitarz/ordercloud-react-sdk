@@ -1,3 +1,4 @@
+/// <reference types="vitest/config" />
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { name, version } from "./package.json";
@@ -18,6 +19,7 @@ export default defineConfig({
       external: [
         "react",
         "react-dom",
+        "axios",
         "ordercloud-javascript-sdk",
         "@tanstack/react-query",
         "@tanstack/react-table",
@@ -30,6 +32,7 @@ export default defineConfig({
         globals: {
           react: "React",
           "react-dom": "ReactDOM",
+          axios: "axios",
           "ordercloud-javascript-sdk": "ordercloud",
           "@tanstack/react-query": "ReactQuery",
           "@tanstack/react-table": "ReactTable",
@@ -50,4 +53,10 @@ export default defineConfig({
       include: ["util", "querystring", "http", "https"],
     }),
   ],
+  test: {
+    environment: "jsdom",
+    setupFiles: ["./src/test/setup.ts"],
+    clearMocks: true,
+    restoreMocks: true,
+  },
 });
