@@ -19,7 +19,6 @@ import { asyncStoragePersister, queryClient } from "./query";
 import { isAnonToken } from "./utils";
 import axios from "axios";
 
-let interceptorSetup = false;
 const OrderCloudProvider: FC<PropsWithChildren<IOrderCloudProvider>> = ({
   children,
   baseApiUrl,
@@ -162,24 +161,24 @@ const OrderCloudProvider: FC<PropsWithChildren<IOrderCloudProvider>> = ({
   }, [clientId, customScope, scope]);
 
   useEffect(() => {
-    if (!interceptorSetup) {
-      axios.interceptors.request.use(
-        async (config) => {
-          await verifyToken();
-          const verifiedToken = Tokens.GetAccessToken();
-          config.headers.Authorization = `Bearer ${verifiedToken}`;
-          // Do something before request is sent
-          return config;
-        },
-        function (error) {
-          // Do something with request error
-          return Promise.reject(error);
-        }
-      );
-    } else {
-      interceptorSetup = true;
-    }
+    const interceptorId = axios.interceptors.request.use(
+      async (config) => {
+        await verifyToken();
+        const verifiedToken = Tokens.GetAccessToken();
+        config.headers.Authorization = `Bearer ${verifiedToken}`;
+        return config;
+      },
+      function (error) {
+        return Promise.reject(error);
+      }
+    );
 
+    return () => {
+      axios.interceptors.request.eject(interceptorId);
+    };
+  }, [verifyToken]);
+
+  useEffect(() => {
     if (!isAuthenticated) {
       verifyToken();
     }
