@@ -1,3 +1,14 @@
+## Unreleased
+
+### Feat
+
+- **peers**: expand `react` and `react-dom` peer ranges to `^18.3.1 || ^19.0.0` while retaining React 18.3.1 support
+
+### Fix
+
+- **provider**: register Axios request interceptors with effect cleanup so StrictMode mount/unmount/remount does not leave duplicate interceptors
+- **useAuthMutation**: invoke the provided `onError` callback instead of returning the function reference
+
 ## 0.2.5 (2025-04-04)
 
 ### Refactor
