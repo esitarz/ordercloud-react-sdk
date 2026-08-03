@@ -8,14 +8,38 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - react-version: "18.3.1"
+            types-react: "18.3.12"
+            types-react-dom: "18.3.1"
+          - react-version: "19.2.8"
+            types-react: "19.0.10"
+            types-react-dom: "19.0.4"
     steps:
-    - uses: actions/checkout@v4
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: 20
-    - name: Install Dependencies
-      run: npm i
-      
-    - name: Build
-      run: npm run build
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install Dependencies
+        run: npm i
+      - name: Install React matrix version
+        run: |
+          npm i --no-save \
+            react@${{ matrix.react-version }} \
+            react-dom@${{ matrix.react-version }} \
+            @types/react@${{ matrix.types-react }} \
+            @types/react-dom@${{ matrix.types-react-dom }}
+      - name: Lint
+        run: npm run lint
+      - name: Test
+        run: npm test
+      - name: Build
+        run: npm run build
+      - name: Pack and inspect package
+        run: node scripts/inspect-pack.mjs
+      - name: Validate consumer install
+        run: node scripts/validate-consumer.mjs ${{ matrix.react-version }}
