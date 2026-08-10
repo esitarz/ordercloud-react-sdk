@@ -50,7 +50,7 @@ export default defineConfig({
     react(),
     dts({ rollupTypes: true }),
     nodePolyfills({
-      include: ["util", "querystring", "http", "https"],
+      include: ["util", "querystring", "http", "https", "path"],
     }),
   ],
   test: {
