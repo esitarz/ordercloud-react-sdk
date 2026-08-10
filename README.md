@@ -12,7 +12,7 @@ To keep this package small, there are some required peer dependencies that are t
 | `react` | `^18.3.1 \|\| ^19.0.0` |
 | `react-dom` | `^18.3.1 \|\| ^19.0.0` |
 | `react-hook-form` | `^7.53.2` |
-| `@hookform/resolvers` | `^3.3.4` |
+| `@hookform/resolvers` | `^3.3.4 \|\| ^5.7.1` |
 
 Install matching major versions of `react` and `react-dom` (both 18.3.1+ or both 19). This SDK supports React 18.3.1 and React 19; it is not React 19-only.
 
