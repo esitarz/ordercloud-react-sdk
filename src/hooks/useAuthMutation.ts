@@ -32,10 +32,11 @@ export default function useAuthMutation<
       onError: (
         error: TError,
         variables: TVariables,
-        context: TContext | undefined
+        context: TContext | undefined,
+        mutationContext
       ) => {
         if (options.onError) {
-          return options.onError(error, variables, context);
+          return options.onError(error, variables, context, mutationContext);
         }
         if (defaultErrorHandler) {
           const e = error as OrderCloudError;
