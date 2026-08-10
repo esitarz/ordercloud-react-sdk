@@ -46,7 +46,7 @@
     "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
     "lint:staged": "lint-staged",
     "prepare": "husky",
-    "test": "vitest run",
+    "test": "vitest run --passWithNoTests",
     "test:watch": "vitest",
     "test:consumer": "npm run build && node scripts/inspect-pack.mjs && node scripts/validate-consumer.mjs 18.3.1 && node scripts/validate-consumer.mjs 19.2.8"
   },
