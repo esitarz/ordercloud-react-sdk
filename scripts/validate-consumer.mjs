@@ -52,7 +52,7 @@ try {
         },
         dependencies: {
           "@ordercloud/react-sdk": `file:${tarballPath}`,
-          "@hookform/resolvers": "^3.3.4",
+          "@hookform/resolvers": "^5.7.1",
           "@tanstack/react-query": "^5.62.2",
           "@tanstack/react-table": "^8.20.5",
           axios: "^1.7.0",
