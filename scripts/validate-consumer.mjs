@@ -74,7 +74,7 @@ try {
     )
   );
 
-  run("npm install --legacy-peer-deps");
+  run("npm install");
 
   const lsOutput = run("npm ls react react-dom --all");
   const reactMatches = [...lsOutput.matchAll(/react@([^\s]+)/g)].map(
@@ -93,14 +93,13 @@ try {
     process.exit(1);
   }
 
-  if (
-    !uniqueReact[0].startsWith(reactVersion) &&
-    uniqueReact[0] !== reactVersion
-  ) {
-    // Accept exact or npm's resolved label containing the requested version.
-    if (!uniqueReact[0].includes(reactVersion)) {
+  for (const [packageName, resolvedVersion] of [
+    ["react", uniqueReact[0]],
+    ["react-dom", uniqueReactDom[0]],
+  ]) {
+    if (!resolvedVersion.includes(reactVersion)) {
       console.error(
-        `Expected react ${reactVersion}, resolved ${uniqueReact[0]}`
+        `Expected ${packageName} ${reactVersion}, resolved ${resolvedVersion}`
       );
       process.exit(1);
     }

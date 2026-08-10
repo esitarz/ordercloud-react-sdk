@@ -45,7 +45,8 @@
     "build": "tsc && vite build",
     "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "test:consumer": "npm run build && node scripts/inspect-pack.mjs && node scripts/validate-consumer.mjs 18.3.1 && node scripts/validate-consumer.mjs 19.2.8"
   },
   "dependencies": {
     "@apidevtools/swagger-parser": "^10.1.0",
