@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react'
+import { type ReactNode, useCallback, useMemo } from 'react'
 import { OpenAPIV3 } from 'openapi-types';
 import { useOrderCloudContext } from '.';
 import { sortBy, get } from 'lodash';
@@ -9,7 +9,7 @@ import useOperations from './useOperations';
 
 const columnHelper = createColumnHelper<RequiredDeep<unknown>>();
 
-const useColumns = (resourceId: string, sortOrder?: string[], cellCallback?: (info: CellContext<unknown, unknown>, properties: OpenAPIV3.SchemaObject, resourceId: string) => JSX.Element) => {
+const useColumns = (resourceId: string, sortOrder?: string[], cellCallback?: (info: CellContext<unknown, unknown>, properties: OpenAPIV3.SchemaObject, resourceId: string) => ReactNode) => {
   const { xpSchemas } = useOrderCloudContext()
   const { listOperation: operation, deleteOperation, assignmentListOperation} = useOperations(resourceId)
 
@@ -47,18 +47,15 @@ const useColumns = (resourceId: string, sortOrder?: string[], cellCallback?: (in
   }, [properties])
 
   const buildColumns = useCallback((obj: unknown, accessor?: string) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let cols = [] as any
     if (!obj || !cellCallback) return cols;
     Object.entries(obj).forEach(([key, value]) => {
-      // eslint-disable-next-line no-prototype-builtins
       const type = value.hasOwnProperty("allOf")
         ? value["allOf"][0]["type"]
         : value["type"];
       const accessorString = accessor ? `${accessor}.${key}` : key;
   
       if (type === "object") {
-        // eslint-disable-next-line no-prototype-builtins
         const properties = value.hasOwnProperty("allOf")
           ? value["allOf"][0]["properties"]
           : value["properties"];
