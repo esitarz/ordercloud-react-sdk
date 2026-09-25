@@ -2,13 +2,21 @@
 This is a developer library for OrderCloud developers utilizing React for their frontend development. It is essentially a wrapper for Tanstack query, which provides a lot of good functionality out of the box for background refreshes, request de-duplication, and caching. You configure your API client settings on the `OrderCloudProvider` which will provide you with a global context accessible though the `useOrderCloudContext()` hook. In addition to this context hook, it provides "authenticated" versions of `useQuery` and `useMutation` for reading and manipulating OrderCloud data in an efficient manner.
 
 # Peer Dependencies
-To keep this package small, there are some required peer dependencies that are typical of an OrderCloud React application that utilizies tanstack libraries:
+To keep this package small, there are some required peer dependencies that are typical of an OrderCloud React application that utilizes tanstack libraries:
 
-- @tanstack/react-query@^5.62.2
-- @tanstack/react-table@^8.20.5
-- ordercloud-javascript-sdk@^11.1.0 || ^12.0.0
-- react@^18.3.1
-- react-dom@^18.3.1
+| Package | Supported versions |
+| --- | --- |
+| `@tanstack/react-query` | `^5.62.2` |
+| `@tanstack/react-table` | `^8.20.5` |
+| `ordercloud-javascript-sdk` | `^11.1.0 \|\| ^12.0.0` |
+| `react` | `^18.3.1 \|\| ^19.0.0` |
+| `react-dom` | `^18.3.1 \|\| ^19.0.0` |
+| `react-hook-form` | `^7.53.2` |
+| `@hookform/resolvers` | `^3.3.4 \|\| ^5.7.1` |
+
+Install matching major versions of `react` and `react-dom` (both 18.3.1+ or both 19). This SDK supports React 18.3.1 and React 19; it is not React 19-only.
+
+React 19 no longer ships a UMD browser build. The SDK still emits UMD/ESM artifacts, but script-tag consumers on React 19 must provide React through an ESM-capable CDN or bundler rather than a React UMD global.
 
 # Usage
 
